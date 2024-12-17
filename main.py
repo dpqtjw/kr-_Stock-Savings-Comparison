@@ -65,7 +65,7 @@ class 기준금리:
             (0.05, datetime.strptime('20000210', '%Y%m%d'), datetime.strptime('20001005', '%Y%m%d')),
             (0.0475, datetime.strptime('19990506', '%Y%m%d'), datetime.strptime('19990506', '%Y%m%d')),
         ])
-        #한국은행 기준 금리리
+        #한국은행 기준 금리
     
     def 금리_조회(self, 기준날짜):
         기준날짜 = datetime.strptime(기준날짜, '%Y%m%d')
@@ -82,6 +82,7 @@ class 복리계산기:
         self.초기원금 = 초기원금
         self.기준금리_객체 = 기준금리_객체
         self.회전수 = 회전수
+        #회전수 = 복리 계산시 사용 // 년 단위 // 최종금액 = 초기금액 x (1+금리)^기간 // 중 기간에 해당
     
     def 총액_계산(self, 시작날짜, 종료날짜):
         총액 = self.초기원금
@@ -136,12 +137,14 @@ if __name__ == "__main__":
     시작날짜 = input("시작 날짜를 입력하세요 (형식: yyyymmdd): ")
     종료날짜 = input("종료 날짜를 입력하세요 (형식: yyyymmdd): ")
     종목코드 = input("종목 코드를 입력하세요: ")
+    #사용자 입력
 
     시작날짜_dt = datetime.strptime(시작날짜, '%Y%m%d')
     종료날짜_dt = datetime.strptime(종료날짜, '%Y%m%d')
     날짜차이 = 종료날짜_dt - 시작날짜_dt
 
     회전수 = int(날짜차이.days) / 365
+    #입력 기간 날짜차이의 단위 변환(x일 => y.z년)
 
     기준금리객체 = 기준금리()
 
